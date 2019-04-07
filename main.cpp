@@ -55,7 +55,7 @@ int main() {
     road.advance();
     road.display(timestep);
 //    time.sleep(1.0 / FRAMES_PER_SECOND);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000 / FRAMES_PER_SECOND));
+//    std::this_thread::sleep_for(std::chrono::milliseconds(1000 / FRAMES_PER_SECOND));
   }
 
   Vehicle ego = road.get_ego();

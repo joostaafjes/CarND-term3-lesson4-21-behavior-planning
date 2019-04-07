@@ -44,23 +44,43 @@ vector<Vehicle> Vehicle::choose_next_state(map<int, vector<Vehicle>> &prediction
    *    for the state. 
    * 3. calculate_cost - Included from cost.cpp, computes the cost for a trajectory.
    */
-  vector<string> successor_states = this->successor_states();
+//  vector<string> successor_states = this->successor_states();
+//
+//  float min_costs = 9999.0;
+//  string best_next_state = "";
+//
+//  for (auto successor_state: successor_states) {
+//    vector<Vehicle> trajectory = generate_trajectory(successor_state, predictions);
+//
+//    float costs = calculate_cost(*this, predictions, trajectory);
+//
+//    if (costs < min_costs) {
+//      min_costs = costs;
+//      best_next_state = successor_state;
+//    }
+//  }
+//
+//  return generate_trajectory(best_next_state, predictions);
 
-  float min_costs = 9999.0;
-  string best_next_state = "";
+  /* Udacity solution: */
+  vector<string> states = successor_states();
+  float cost;
+  vector<float> costs;
+  vector<vector<Vehicle>> final_trajectories;
 
-  for (auto successor_state: successor_states) {
-    vector<Vehicle> trajectory = generate_trajectory(successor_state, predictions);
-
-    float costs = calculate_cost(*this, predictions, trajectory);
-
-    if (costs < min_costs) {
-      min_costs = costs;
-      best_next_state = successor_state;
+  for (vector<string>::iterator it = states.begin(); it != states.end(); ++it) {
+    vector<Vehicle> trajectory = generate_trajectory(*it, predictions);
+    if (trajectory.size() != 0) {
+      cost = calculate_cost(*this, predictions, trajectory);
+      costs.push_back(cost);
+      final_trajectories.push_back(trajectory);
     }
   }
 
-  return generate_trajectory(best_next_state, predictions);
+  vector<float>::iterator best_cost = min_element(begin(costs), end(costs));
+  int best_idx = distance(begin(costs), best_cost);
+
+  return final_trajectories[best_idx];
 }
 
 vector<string> Vehicle::successor_states() {

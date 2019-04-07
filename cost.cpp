@@ -15,6 +15,10 @@ using std::vector;
  */
 const float REACH_GOAL = 5;
 const float EFFICIENCY = 1;
+// Udacity:
+//const float REACH_GOAL = pow(10, 6);
+//const float EFFICIENCY = pow(10, 5);
+
 
 // Here we have provided two possible suggestions for cost functions, but feel 
 //   free to use your own! The weighted cost over all cost functions is computed
