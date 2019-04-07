@@ -43,15 +43,24 @@ vector<Vehicle> Vehicle::choose_next_state(map<int, vector<Vehicle>> &prediction
    *    trajectory vectors might have size 0 if no possible trajectory exists 
    *    for the state. 
    * 3. calculate_cost - Included from cost.cpp, computes the cost for a trajectory.
-   *
-   * TODO: Your solution here.
    */
+  vector<string> successor_states = this->successor_states();
 
+  float min_costs = 9999.0;
+  string best_next_state = "";
 
-  /**
-   * TODO: Change return value here:
-   */
-  return generate_trajectory("KL", predictions);
+  for (auto successor_state: successor_states) {
+    vector<Vehicle> trajectory = generate_trajectory(successor_state, predictions);
+
+    float costs = calculate_cost(*this, predictions, trajectory);
+
+    if (costs < min_costs) {
+      min_costs = costs;
+      best_next_state = successor_state;
+    }
+  }
+
+  return generate_trajectory(best_next_state, predictions);
 }
 
 vector<string> Vehicle::successor_states() {

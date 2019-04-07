@@ -3,6 +3,9 @@
 #include "road.h"
 #include "vehicle.h"
 
+#include <chrono>
+#include <thread>
+
 using std::cout;
 using std::endl;
 
@@ -51,7 +54,8 @@ int main() {
     }
     road.advance();
     road.display(timestep);
-    //time.sleep(float(1.0) / FRAMES_PER_SECOND);
+//    time.sleep(1.0 / FRAMES_PER_SECOND);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000 / FRAMES_PER_SECOND));
   }
 
   Vehicle ego = road.get_ego();
